@@ -1,0 +1,11 @@
+prototype(Wegmeister.SendInBlue:Finishers.SendInBlue.Definition) < prototype(Neos.Form.Builder:Finisher.Definition) {
+    formElementType = 'Wegmeister.SendInBlue:Finishers.SendInBlue'
+
+    options {
+        apiKey = ${null}
+        includeListIds = ${null}
+        templateId = ${null}
+        redirectionUrl = ${null}
+        emailIdentifier = ${null}
+    }
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file original="" product-name="Wegmeister.SendInBlue" source-language="en" target-language="de" datatype="plaintext">
+		<body>
+			<trans-unit id="ui.label" xml:space="preserve">
+				<source>Sendinblue finisher</source>
+				<target>Sendinblue Finisher</target>
+			</trans-unit>
+			<trans-unit id="properties.apiKey" xml:space="preserve">
+				<source>Sendinblue api-key</source>
+				<target>Sendinblue API-Key</target>
+			</trans-unit>
+			<trans-unit id="properties.includeListIds" xml:space="preserve">
+				<source>Sendinblue list ids</source>
+				<target>Sendinblue Listen-IDs</target>
+			</trans-unit>
+			<trans-unit id="properties.templateId" xml:space="preserve">
+				<source>Sendinblue template id</source>
+				<target>Sendinblue Template-ID</target>
+			</trans-unit>
+			<trans-unit id="properties.redirectionUrl" xml:space="preserve">
+				<source>Sendinblue redirection url</source>
+				<target>Sendinblue Weiterleitungs-URL</target>
+			</trans-unit>
+			<trans-unit id="properties.emailIdentifier" xml:space="preserve">
+				<source>Identifier of email field in form</source>
+				<target>ID des E-Mail-Feldes im Formular</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

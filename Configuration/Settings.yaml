@@ -1,0 +1,20 @@
+Neos:
+  Form:
+    presets:
+      default:
+        finisherPresets:
+          'Wegmeister.SendInBlue:Finishers.SendInBlue':
+            implementationClassName: Wegmeister\SendInBlue\Finishers\SendInBlueFinisher
+            options: {  }
+
+  Neos:
+    fusion:
+      autoInclude:
+        'Wegmeister.SendInBlue': true
+
+    userInterface:
+      translation:
+        autoInclude:
+          'Wegmeister.SendInBlue':
+            - 'NodeTypes/*'
+            - 'Main'
