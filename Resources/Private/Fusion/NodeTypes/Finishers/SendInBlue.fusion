@@ -22,7 +22,9 @@ prototype(Neos.Form.Builder:NodeBasedFinisherCollection) {
                     includeListIds = ${q(finisherNode).property('includeListIds')}
                     templateId = ${q(finisherNode).property('templateId')}
                     redirectionUrl = ${q(finisherNode).property('redirectionUrl')}
-                    redirectionUrl.@process.convertNodeUris = Neos.Neos:ConvertUris
+                    redirectionUrl.@process.convertNodeUris = Neos.Neos:ConvertUris {
+                        absolute = true
+                    }
                     emailIdentifier = ${q(finisherNode).property('emailIdentifier')}
                     @process.addNodeProperties >
                 }
