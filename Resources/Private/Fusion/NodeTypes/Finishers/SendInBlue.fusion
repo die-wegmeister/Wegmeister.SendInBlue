@@ -9,3 +9,24 @@ prototype(Wegmeister.SendInBlue:Finishers.SendInBlue.Definition) < prototype(Neo
         emailIdentifier = ${null}
     }
 }
+
+prototype(Neos.Form.Builder:NodeBasedFinisherCollection) {
+    itemRenderer {
+        sendinblue {
+            @position = 'start'
+            condition = ${q(finisherNode).is('[instanceof Wegmeister.SendInBlue:Finishers.SendInBlue]')}
+            renderer = Neos.Form.Builder:NodeBasedFinisher {
+                type = 'Wegmeister.SendInBlue:Finishers.SendInBlue.Definition'
+                element.options {
+                    apiKey = ${q(finisherNode).property('apiKey')}
+                    includeListIds = ${q(finisherNode).property('includeListIds')}
+                    templateId = ${q(finisherNode).property('templateId')}
+                    redirectionUrl = ${q(finisherNode).property('redirectionUrl')}
+                    redirectionUrl.@process.convertNodeUris = Neos.Neos:ConvertUris
+                    emailIdentifier = ${q(finisherNode).property('emailIdentifier')}
+                    @process.addNodeProperties >
+                }
+            }
+        }
+    }
+}

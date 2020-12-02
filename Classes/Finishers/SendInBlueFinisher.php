@@ -37,7 +37,7 @@ class SendInBlueFinisher extends AbstractFinisher
         $redirectionUrl = $this->parseOption('redirectionUrl');
         $emailIdentifier = $this->parseOption('emailIdentifier');
 
-        if ($apiKey === null) {
+        if ($apiKey === null || $apiKey === '') {
             throw new FinisherException('The option "apiKey" must be set for the SendInBlueFinisher.', 1603986560);
         }
         if (empty($includeListIds)) {
@@ -46,7 +46,7 @@ class SendInBlueFinisher extends AbstractFinisher
                 1603986637
             );
         }
-        if ($templateId === null) {
+        if ($templateId === null || $templateId === '') {
             throw new FinisherException('The option "templateId" must be set for the SendInBlueFinisher.', 1603988345);
         }
 
@@ -58,14 +58,14 @@ class SendInBlueFinisher extends AbstractFinisher
         $formValues = $this->finisherContext->getFormValues();
 
         $email = null;
-        if ($emailIdentifier === null) {
+        if ($emailIdentifier === null || $emailIdentifier === '') {
             foreach ($formValues as $identifier => $value) {
                 if (preg_match('/^(e-?)?mail$/i', $identifier)) {
                     $emailIdentifier = $identifier;
                     break;
                 }
             }
-            if ($emailIdentifier === null) {
+            if ($emailIdentifier === null || $emailIdentifier === '') {
                 throw new FinisherException(
                     'The required field for mails could not be determined. '
                         . 'Either fill the field "emailIdentifier" with the matching identifier of '
