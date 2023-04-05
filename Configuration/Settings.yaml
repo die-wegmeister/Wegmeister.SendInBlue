@@ -18,3 +18,7 @@ Neos:
           'Wegmeister.SendInBlue':
             - 'NodeTypes/*'
             - 'Main'
+
+Wegmeister:
+  SendInBlue:
+    apiKey:

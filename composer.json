@@ -21,5 +21,8 @@
               ]
             }
         }
+    },
+    "suggest": {
+        "neos/fusion-form": "Needed when using \\Wegmeister\\SendInBlue\\FusionForm\\Action\\SendInBlueAction"
     }
 }
