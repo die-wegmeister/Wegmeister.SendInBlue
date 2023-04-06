@@ -1,15 +1,15 @@
 <?php
 namespace Wegmeister\SendInBlue\Finishers;
 
-    /*
-     * This file is part of the Wegmeister.Form.FormElements package.
-     *
-     * (c) Contributors of the Neos Project - www.neos.io
-     *
-     * This package is Open Source Software. For the full copyright and license
-     * information, please view the LICENSE file which was distributed with this
-     * source code.
-     */
+/*
+ * This file is part of the Wegmeister.Form.FormElements package.
+ *
+ * (c) Contributors of the Neos Project - www.neos.io
+ *
+ * This package is Open Source Software. For the full copyright and license
+ * information, please view the LICENSE file which was distributed with this
+ * source code.
+ */
 
 use Neos\Form\Core\Model\AbstractFinisher;
 use Neos\Form\Exception\FinisherException;
@@ -17,7 +17,7 @@ use Wegmeister\SendInBlue\Exception\Exception;
 use Wegmeister\SendInBlue\Service\SendInBlueService;
 use Neos\FLow\Annotations as Flow;
 
-    /**
+/**
  * This finisher adds new contacts to a SendInBlue group
  */
 class SendInBlueFinisher extends AbstractFinisher
