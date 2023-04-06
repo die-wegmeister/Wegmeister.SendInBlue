@@ -1,5 +1,5 @@
 <?php
-namespace Wegmeister\SendInBlue\FusionForm\Action;
+namespace Wegmeister\SendInBlue\Action;
 
 /*
  * This file is part of the Wegmeister.Form.FormElements package.
@@ -15,6 +15,7 @@ use Neos\Flow\Mvc\ActionResponse;
 use Neos\Fusion\Form\Runtime\Action\AbstractAction;
 use Neos\Fusion\Form\Runtime\Domain\Exception\ActionException;
 use Wegmeister\SendInBlue\Service\SendInBlueService;
+use Neos\Flow\Annotations as Flow;
 
 class SendInBlueAction extends AbstractAction
 {
@@ -36,19 +37,15 @@ class SendInBlueAction extends AbstractAction
 
     public function perform(): ?ActionResponse
     {
-        $apiKey = $this->options['apiKey'] ?? null;
+        $apiKey = $this->options['apiKey'];
         $includeListIds = $this->options['includeListIds'];
         $templateId = $this->options['templateId'];
         $redirectionUrl = $this->options['redirectionUrl'];
         $email = $this->options['email'];
         $attributes = $this->options['attributes'] ?? [];
 
-        if ($apiKey === null || $apiKey === '') {
-            throw new ActionException(
-                'The option "apiKey" must be set for SendInBlueAction.',
-                1680709673
-            );
-        } else {
+        // override via settings configured api key
+        if (!empty($apiKey)) {
             $this->sendInBlueService->setApiKey($apiKey);
         }
         if (empty($includeListIds)) {
@@ -63,18 +60,32 @@ class SendInBlueAction extends AbstractAction
                 1680709675
             );
         }
+        if ($email === null || trim($email) === '') {
+            throw new ActionException(
+                'The option "email" must be set for the SendInBlueAction.',
+                1680709676
+            );
+        }
         if (!is_array($includeListIds)) {
             $includeListIds = [$includeListIds];
         }
         $includeListIds = array_map('intval', $includeListIds);
 
-        $this->sendInBlueService->createDoiContact(
-            $email,
-            $attributes,
-            $includeListIds,
-            (int)$templateId,
-            $redirectionUrl
-        );
+        try {
+            $this->sendInBlueService->createDoiContact(
+                $email,
+                $attributes,
+                $includeListIds,
+                (int)$templateId,
+                $redirectionUrl
+            );
+        } catch (\Exception $exception) {
+            $response = new ActionResponse();
+            $response->setContent(
+                $exception->getMessage()
+            );
+            return $response;
+        }
 
         return null;
     }

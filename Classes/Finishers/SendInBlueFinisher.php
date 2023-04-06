@@ -15,6 +15,7 @@ use Neos\Form\Core\Model\AbstractFinisher;
 use Neos\Form\Exception\FinisherException;
 use Wegmeister\SendInBlue\Exception\Exception;
 use Wegmeister\SendInBlue\Service\SendInBlueService;
+use Neos\FLow\Annotations as Flow;
 
     /**
  * This finisher adds new contacts to a SendInBlue group

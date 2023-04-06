@@ -44,7 +44,7 @@ class SendInBlueService
      * @param string $email Email address where the confirmation email will be sent. This email address will be the identifier for all other contact attributes.
      * @param array $attributes Pass the set of attributes and their values. These attributes must be present in your SendinBlue account. For eg. {'FNAME':'Elly', 'LNAME':'Roger'}
      * @param array $includeListIds Lists under user account where contact should be added
-     * @param int $templateId Id of the Double opt-in (DOI) template
+     * @param int $templateId ID of the Double opt-in (DOI) template
      * @param string $redirectionUrl URL of the web page that user will be redirected to after clicking on the double opt in URL. When editing your DOI template you can reference this URL by using the tag {{ params.DOIurl }}.
      * @throws Exception
      */
@@ -58,7 +58,7 @@ class SendInBlueService
     {
         $newContact = new CreateDoiContact([
             'email' => $email,
-            'attributes' => $attributes,
+            'attributes' => empty($attributes) ? null: $attributes,
             'includeListIds' => $includeListIds,
             'templateId' => $templateId,
             'redirectionUrl' => $redirectionUrl
