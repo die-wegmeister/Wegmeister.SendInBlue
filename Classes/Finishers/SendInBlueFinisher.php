@@ -13,21 +13,26 @@ namespace Wegmeister\SendInBlue\Finishers;
 
 use Neos\Form\Core\Model\AbstractFinisher;
 use Neos\Form\Exception\FinisherException;
-use SendinBlue\Client\Configuration as SendinBlueConfiguration;
-use SendinBlue\Client\Api\ContactsApi;
-use SendinBlue\Client\Model\CreateDoiContact;
+use Wegmeister\SendInBlue\Exception\Exception;
+use Wegmeister\SendInBlue\Service\SendInBlueService;
+use Neos\FLow\Annotations as Flow;
 
 /**
  * This finisher adds new contacts to a SendInBlue group
  */
 class SendInBlueFinisher extends AbstractFinisher
 {
+
     /**
-     * Executes this finisher
-     * @see AbstractFinisher::execute()
-     *
+     * @var SendInBlueService
+     * @Flow\Inject
+     */
+    protected $sendInBlueService;
+
+    /**
      * @return void
-     * @throws FinisherException
+     * @throws Exception
+     * @throws FinisherException|Exception
      */
     protected function executeInternal()
     {
@@ -39,6 +44,8 @@ class SendInBlueFinisher extends AbstractFinisher
 
         if ($apiKey === null || $apiKey === '') {
             throw new FinisherException('The option "apiKey" must be set for the SendInBlueFinisher.', 1603986560);
+        } else {
+            $this->sendInBlueService->setApiKey($apiKey);
         }
         if (empty($includeListIds)) {
             throw new FinisherException(
@@ -86,27 +93,12 @@ class SendInBlueFinisher extends AbstractFinisher
         $formRuntime = $this->finisherContext->getFormRuntime();
         $referrer = $formRuntime->getRequest()->getHttpRequest()->getUri()->__toString();
 
-        $config = SendinBlueConfiguration::getDefaultConfiguration()->setApiKey('api-key', $apiKey);
-
-        $apiInstance = new ContactsApi(
-            new \GuzzleHttp\Client(),
-            $config
+        $this->sendInBlueService->createDoiContact(
+            $email,
+            $formValues,
+            $includeListIds,
+            (int)$templateId,
+            $redirectionUrl ?: $referrer
         );
-
-        $newContact = new CreateDoiContact();
-        $newContact['email'] = $email;
-        $newContact['attributes'] = $formValues;
-        $newContact['includeListIds'] = $includeListIds;
-        $newContact['templateId'] = (int)$templateId;
-        $newContact['redirectionUrl'] = $redirectionUrl ?: $referrer;
-
-        try {
-            $apiInstance->createDoiContact($newContact);
-        } catch (\Exception $e) {
-            throw new FinisherException(
-                'Could not create new SendinBlue contact. API-Exception: ' . $e->getMessage(),
-                1603988495
-            );
-        }
     }
 }

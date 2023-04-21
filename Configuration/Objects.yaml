@@ -1,0 +1,4 @@
+Wegmeister\SendInBlue\Service\SendInBlueService:
+  arguments:
+    1:
+      setting: 'Wegmeister.SendInBlue.apiKey'
